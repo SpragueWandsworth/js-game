@@ -1,4 +1,3 @@
-//speed be player size?
 //for collision its: if player.xy === thing.xy colision is happening 
 
 const canvas = document.getElementById("game-window");
@@ -25,7 +24,7 @@ function drawPlayer() {
 function erasePlayer(){
     ctx.fillStyle = "White";
     ctx.fillRect(player.x, player.y, playerSize, playerSize);
-}
+};
 
 function startGame() {
     drawPlayer();
@@ -42,32 +41,36 @@ function checkPlayerMovement(event) {
     const LEFT = 37;
     const UP = 38;
     const RIGHT = 39;
-    const DOWN = 40; 
+    const DOWN = 40;
     
     switch(key) {
         case LEFT:
-            console.log("left");
-            erasePlayer();
-            player.x -= playerSize;
-            drawPlayer();
+            if (player.x > 0) {
+                erasePlayer();
+                player.x -= playerSize;
+                drawPlayer();
+            }
             break;
         case UP:
-            console.log("up")
-            erasePlayer();
-            player.y -= playerSize;
-            drawPlayer();
+            if (player.y > 0) {
+                erasePlayer();
+                player.y -= playerSize;
+                drawPlayer();
+            }
             break;
         case RIGHT:
-            console.log("right");
-            erasePlayer();
-            player.x += playerSize;
-            drawPlayer();
+            if (player.x < gameWidth - playerSize) {
+                erasePlayer();
+                player.x += playerSize;
+                drawPlayer();
+            }
             break;
         case DOWN:
-            console.log("down")
-            erasePlayer();
-            player.y += playerSize;
-            drawPlayer();
+            if (player.y < gameHeight - playerSize) {
+                erasePlayer();
+                player.y += playerSize;
+                drawPlayer();
+            }
             break;  
     };
 };
