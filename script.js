@@ -7,14 +7,18 @@ const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 
 let player = {x: 25, y: 25};
+let enemy = {x: 250, y: 100};
 let coin = {x: 75, y: 75};
 
 const coinColor = "Yellow";
 const coinSize = 5;
 
+const enemyColor = "Red";
+const enemySize = 25;
+
 const playerColor = "Green";
 const playerSize = 25;
-const playerSpeed = 3;
+const playerSpeed = 5;
 const playerCenterX = player.x + playerSize/2;
 const playerCenterY = player.y + playerSize/2;
 
@@ -29,8 +33,19 @@ function drawPlayer() {
 };
 
 function erasePlayer(){
-    ctx.fillStyle = "White"; 
+    ctx.fillStyle = "White";
     ctx.fillRect(player.x, player.y, playerSize, playerSize);
+};
+
+function drawEnemy(){
+    ctx.fillStyle = enemyColor;
+    ctx.fillRect(enemy.x, enemy.y, enemySize, enemySize);
+};
+
+function eraseEnemy(){
+    console.log("enemy erased")
+    ctx.fillStyle = "White";
+    ctx.fillRect(enemy.x, enemy.y, enemySize, enemySize);
 };
 
 function createCoin(){
@@ -44,6 +59,7 @@ function createCoin(){
 
 function startGame() {
     drawPlayer();
+    drawEnemy();
     createCoin();
 };
 
@@ -90,9 +106,16 @@ function checkPlayerMovement(event) {
             }
             break;
     };
+    //Player collision
     if (player.x + playerSize/2 >= coin.x - coinSize *4 && player.x <= coin.x + coinSize) {
         if (player.y >= coin.y - coinSize *4 && player.y <= coin.y + coinSize){
             alert("player touched coin");
         };
     };
+    if (player.x === enemy.x) {eraseEnemy};
+};
+
+function moveEnemy(){
+
+
 };
