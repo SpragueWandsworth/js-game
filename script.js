@@ -22,6 +22,11 @@ function drawPlayer() {
     ctx.fillRect(player.x, player.y, playerSize, playerSize);
 };
 
+function erasePlayer(){
+    ctx.fillStyle = "White";
+    ctx.fillRect(player.x, player.y, playerSize, playerSize);
+}
+
 function startGame() {
     drawPlayer();
 };
@@ -42,15 +47,27 @@ function checkPlayerMovement(event) {
     switch(key) {
         case LEFT:
             console.log("left");
+            erasePlayer();
+            player.x -= playerSize;
+            drawPlayer();
             break;
         case UP:
             console.log("up")
+            erasePlayer();
+            player.y -= playerSize;
+            drawPlayer();
             break;
         case RIGHT:
             console.log("right");
+            erasePlayer();
+            player.x += playerSize;
+            drawPlayer();
             break;
         case DOWN:
             console.log("down")
+            erasePlayer();
+            player.y += playerSize;
+            drawPlayer();
             break;  
     };
 };
