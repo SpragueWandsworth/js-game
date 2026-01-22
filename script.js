@@ -6,15 +6,17 @@ const ctx = canvas.getContext("2d");
 const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 
+let player = {x: 25, y: 25};
+let coin = {x: 75, y: 75};
+
 const coinColor = "Yellow";
 const coinSize = 5;
 
 const playerColor = "Green";
 const playerSize = 25;
 const playerSpeed = 3;
-
-let player = {x: 25, y: 25};
-let coin = {x: 75, y: 75};
+const playerCenterX = player.x + playerSize/2;
+const playerCenterY = player.y + playerSize/2;
 
 window.addEventListener("keydown", checkPlayerMovement);
 
@@ -88,7 +90,7 @@ function checkPlayerMovement(event) {
             }
             break;
     };
-    if (player.x >= coin.x - coinSize *4 && player.x <= coin.x + coinSize) {
+    if (player.x + playerSize/2 >= coin.x - coinSize *4 && player.x <= coin.x + coinSize) {
         if (player.y >= coin.y - coinSize *4 && player.y <= coin.y + coinSize){
             alert("player touched coin");
         };
