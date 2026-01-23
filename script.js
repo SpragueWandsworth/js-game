@@ -1,4 +1,3 @@
-//for collision its: if player.xy === thing.xy colision is happening 
 
 const scoreLabel = document.getElementById("score-label");
 const canvas = document.getElementById("game-window");
@@ -8,7 +7,9 @@ const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 
 const coinColor = "Yellow";
-const coinSize = 5;
+const coinSize = 16;
+const coinImg = new Image();
+coinImg.src = "https://art.pixilart.com/sr29401dd261a9a.png";
 
 const enemyColor = "Red";
 const enemySize = 25;
@@ -47,17 +48,11 @@ function randomizeCoin() {
     }
     coin.x = randomizePosition(gameWidth-coinSize);
     coin.y = randomizePosition(gameHeight-coinSize);
-    createCoin();
+    drawCoin();
 }
 
-function createCoin(){
-    
-    // ctx.beginPath();
-    // ctx.arc(coin.x, coin.y, coinSize, 0, 2*Math.PI);
-    // ctx.fillStyle = coinColor;
-    // ctx.fill();
-    // ctx.strokeStyle = coinColor;
-    // ctx.stroke();
+function drawCoin(){
+    ctx.drawImage(coinImg, coin.x, coin.y, coinSize, coinSize);
 };
 
 function startGame() {
@@ -70,7 +65,7 @@ function update() {
     ctx.clearRect(0, 0, gameWidth, gameHeight);
 
     drawEnemy();
-    createCoin();
+    drawCoin();
     drawPlayer();
 
     if (checkIfColliding(player, enemy)) {
