@@ -6,10 +6,6 @@ const ctx = canvas.getContext("2d");
 const gameWidth = canvas.width;
 const gameHeight = canvas.height;
 
-let player = {x: 25, y: 25};
-let enemy = {x: 250, y: 100};
-let coin = {x: 75, y: 75};
-
 const coinColor = "Yellow";
 const coinSize = 5;
 
@@ -19,6 +15,13 @@ const enemySize = 25;
 const playerColor = "Green";
 const playerSize = 25;
 const playerSpeed = 5;
+
+let player = {x: 25, y: 25, width: playerSize, height: playerSize};
+let enemy = {x: 250, y: 100, width: enemySize, height: enemySize};
+let coin = {x: 75, y: 75, width: coinSize, height: coinSize};
+
+let playerAlive = true;
+
 // const playerCenterX = player.x + playerSize/2;
 // const playerCenterY = player.y + playerSize/2;
 
@@ -59,6 +62,13 @@ function update() {
     createCoin();
     drawPlayer();
 
+    if (checkIfColliding(player, enemy)) {
+        alert("player touched enemy");
+    }
+
+    if (checkIfColliding(player, coin)) {
+        alert("player touched coin");
+    }
 };
 
 function checkPlayerMovement(event) {
@@ -90,14 +100,15 @@ function checkPlayerMovement(event) {
             }
             break;
     };
-    //Player collision
-    // if (player.x + playerSize/2 >= coin.x - coinSize *4 && player.x <= coin.x + coinSize) {
-    //     if (player.y >= coin.y - coinSize *4 && player.y <= coin.y + coinSize){
-    //         alert("player touched coin");
-    //     };
-    // };
-    // if (player.x === enemy.x) {eraseEnemy};
 };
+
+function checkIfColliding(a, b){
+    return a.x < b.x + b.width &&   //a's top left corner doesn't reach b's top right corner
+           a.x + a.width > b.x &&   //a's top right corner passes b's top left corner
+           a.y < b.y + b.height &&  //a's top left corner doesn't reach b's bottom left corner
+           a.y + a.height > b.y;    //a's bottom left corner passes b's top left corner
+};
+
 
 function moveEnemy(){
 
