@@ -32,21 +32,11 @@ function drawPlayer() {
     ctx.fillRect(player.x, player.y, playerSize, playerSize);
 };
 
-// function erasePlayer(){
-//     ctx.fillStyle = "White";
-//     ctx.fillRect(player.x, player.y, playerSize, playerSize);
-// };
-
 function drawEnemy(){
+    //if enemy exists
     ctx.fillStyle = enemyColor;
     ctx.fillRect(enemy.x, enemy.y, enemySize, enemySize);
 };
-
-// function eraseEnemy(){
-//     console.log("enemy erased")
-//     ctx.fillStyle = "White";
-//     ctx.fillRect(enemy.x, enemy.y, enemySize, enemySize);
-// };
 
 function createCoin(){
     ctx.beginPath();
@@ -59,9 +49,6 @@ function createCoin(){
 
 function startGame() {
     requestAnimationFrame(update);
-    drawPlayer();
-    drawEnemy();
-    createCoin();
 };
 
 function update() { 
