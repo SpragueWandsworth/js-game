@@ -13,6 +13,7 @@ coinImg.src = "https://art.pixilart.com/sr29401dd261a9a.png";
 
 const enemyColor = "Red";
 const enemySize = 25;
+const enemySpeed = 1;
 
 const playerColor = "Green";
 const playerSize = 25;
@@ -68,6 +69,8 @@ function update() {
     drawCoin();
     drawPlayer();
 
+    moveEnemy();
+
     if (checkIfColliding(player, enemy)) {
         playerAlive = false;
     }
@@ -118,6 +121,23 @@ function checkIfColliding(a, b){
 
 
 function moveEnemy(){
-
-
+    if (score > 0) return;
+    let randomDirection = Math.floor(Math.random() * 4); //gets random number from 0 to 3, so 4 numbers
+    
+    switch(randomDirection) {
+        case 0:
+            enemy.y -= enemySpeed;
+            break;
+        case 1:
+            enemy.y += enemySpeed;
+            break;
+        case 2:
+            enemy.x -= enemySpeed;
+            break;
+        case 3:
+            enemy.x += enemySpeed;
+            break;
+    }
+    console.log(randomDirection);
+    console.log(enemy.x, enemy.y);
 };
