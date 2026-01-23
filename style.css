@@ -1,12 +1,15 @@
 body {
     height: 95vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 canvas {
     height: 500px; 
     width: 1000px;
+    outline: solid;
+}
+
+#score-label {
+    font-size: 36px;
     outline: solid;
 }

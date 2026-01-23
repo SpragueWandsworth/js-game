@@ -1,5 +1,6 @@
 //for collision its: if player.xy === thing.xy colision is happening 
 
+const scoreLabel = document.getElementById("score-label");
 const canvas = document.getElementById("game-window");
 const ctx = canvas.getContext("2d");
 
@@ -20,10 +21,9 @@ let player = {x: 25, y: 25, width: playerSize, height: playerSize};
 let enemy = {x: 250, y: 100, width: enemySize, height: enemySize};
 let coin = {x: 75, y: 75, width: coinSize, height: coinSize};
 
-let playerAlive = true;
+let score = 0;
 
-// const playerCenterX = player.x + playerSize/2;
-// const playerCenterY = player.y + playerSize/2;
+let playerAlive = true;
 
 window.addEventListener("keydown", checkPlayerMovement);
 
@@ -31,26 +31,37 @@ startGame();
 update();
 
 function drawPlayer() {
+    if (!playerAlive) return;
     ctx.fillStyle = playerColor;
     ctx.fillRect(player.x, player.y, playerSize, playerSize);
 };
 
 function drawEnemy(){
-    //if enemy exists
     ctx.fillStyle = enemyColor;
     ctx.fillRect(enemy.x, enemy.y, enemySize, enemySize);
 };
 
+function randomizeCoin() {
+    function randomizePosition(max){
+        return num = Math.random() * max;
+    }
+    coin.x = randomizePosition(gameWidth-coinSize);
+    coin.y = randomizePosition(gameHeight-coinSize);
+    createCoin();
+}
+
 function createCoin(){
-    ctx.beginPath();
-    ctx.arc(coin.x, coin.y, coinSize, 0, 2*Math.PI);
-    ctx.fillStyle = coinColor;
-    ctx.fill();
-    ctx.strokeStyle = coinColor;
-    ctx.stroke();
+    
+    // ctx.beginPath();
+    // ctx.arc(coin.x, coin.y, coinSize, 0, 2*Math.PI);
+    // ctx.fillStyle = coinColor;
+    // ctx.fill();
+    // ctx.strokeStyle = coinColor;
+    // ctx.stroke();
 };
 
 function startGame() {
+    scoreLabel.textContent = score;
     requestAnimationFrame(update);
 };
 
@@ -63,11 +74,12 @@ function update() {
     drawPlayer();
 
     if (checkIfColliding(player, enemy)) {
-        alert("player touched enemy");
+        playerAlive = false;
     }
-
     if (checkIfColliding(player, coin)) {
-        alert("player touched coin");
+        score += 1;
+        scoreLabel.textContent = score;
+        randomizeCoin();
     }
 };
 
