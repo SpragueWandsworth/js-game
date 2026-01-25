@@ -1,5 +1,6 @@
 
 const scoreLabel = document.getElementById("score-label");
+const enemyScoreLabel = document.getElementById("enemy-score-label");
 const canvas = document.getElementById("game-window");
 const ctx = canvas.getContext("2d");
 
@@ -13,17 +14,18 @@ coinImg.src = "https://art.pixilart.com/sr29401dd261a9a.png";
 
 const enemyColor = "Red";
 const enemySize = 25;
-const enemySpeed = 1;
+const enemySpeed = 25;
 
 const playerColor = "Green";
 const playerSize = 25;
-const playerSpeed = 5;
+const playerSpeed = 25;
 
 let player = {x: 25, y: 25, width: playerSize, height: playerSize};
 let enemy = {x: 250, y: 100, width: enemySize, height: enemySize};
 let coin = {x: 75, y: 75, width: coinSize, height: coinSize};
 
 let score = 0;
+let enemyScore = 0;
 
 let playerAlive = true;
 
@@ -31,6 +33,7 @@ window.addEventListener("keydown", checkPlayerMovement);
 
 startGame();
 update();
+setInterval(moveEnemy, 250);
 
 function drawPlayer() {
     if (!playerAlive) return;
@@ -58,6 +61,7 @@ function drawCoin(){
 
 function startGame() {
     scoreLabel.textContent = score;
+    enemyScoreLabel.textContent = enemyScore;
     requestAnimationFrame(update);
 };
 
@@ -69,8 +73,6 @@ function update() {
     drawCoin();
     drawPlayer();
 
-    moveEnemy();
-
     if (checkIfColliding(player, enemy)) {
         playerAlive = false;
     }
@@ -79,9 +81,16 @@ function update() {
         scoreLabel.textContent = score;
         randomizeCoin();
     }
+    if (checkIfColliding(enemy, coin)) {
+        enemyScore +1
+        enemyScoreLabel.textContent = score;
+        randomizeCoin();
+    }
 };
 
 function checkPlayerMovement(event) {
+    if (!playerAlive) return;
+
     const key = event.keyCode;
     const LEFT = 37;
     const UP = 38;
@@ -121,23 +130,31 @@ function checkIfColliding(a, b){
 
 
 function moveEnemy(){
-    if (score > 0) return;
-    let randomDirection = Math.floor(Math.random() * 4); //gets random number from 0 to 3, so 4 numbers
+    //if (score > 0) return;
+    let randomDirection = Math.floor(Math.random() * 4);
     
     switch(randomDirection) {
-        case 0:
-            enemy.y -= enemySpeed;
+        case 0: //Up
+            if (enemy.y > 0) {
+                enemy.y -= enemySpeed;
+            }
             break;
-        case 1:
-            enemy.y += enemySpeed;
+        case 1: //Down
+            if (enemy.y < gameHeight - enemySize) {
+                enemy.y += enemySpeed;
+            }
             break;
-        case 2:
-            enemy.x -= enemySpeed;
+        case 2: //Left
+            if (enemy.x > 0) {
+                enemy.x -= enemySpeed;
+            }
             break;
-        case 3:
-            enemy.x += enemySpeed;
+        case 3: //Right
+            if (enemy.x < gameWidth - enemySize) {
+                enemy.x += enemySpeed;
+            }
             break;
     }
-    console.log(randomDirection);
-    console.log(enemy.x, enemy.y);
+    // console.log(randomDirection);
+    // console.log(enemy.x, enemy.y);
 };
