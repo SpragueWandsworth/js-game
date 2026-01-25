@@ -82,8 +82,8 @@ function update() {
         randomizeCoin();
     }
     if (checkIfColliding(enemy, coin)) {
-        enemyScore +1
-        enemyScoreLabel.textContent = score;
+        enemyScore += 1;
+        enemyScoreLabel.textContent = enemyScore;
         randomizeCoin();
     }
 };
